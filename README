@@ -1,0 +1,71 @@
+# gdx2oo - utility to convert .gdx data files into Open Office spreadsheets
+# Copyright (C) 2009  Mihaly Himics
+
+# This utility is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+# You can contact me by email at trial.solution@gmail.com
+
+
+I. FILES INCLUDED
+gdx2oo - shell script
+gdx2oo.conf - configuration file
+gdx2oo.py - python code for handling command line parameters
+readgdx.py - python code for parsing dumpfiles
+ooolib.py - open office utility library, Copyright (C) 2006-2009  Joseph Colton
+README - this file
+
+
+II. INSTALLATION
+Method 1.
+Simply put all files in your project directory. If you distribute your code than this method allows others to use gdx2oo.
+
+Method 2.
+Put the files in a local directory and add it to the PATH. Then your terminal will find them.
+
+
+III. USAGE (method 1)
+A) Command line use:
+1. Open a terminal and navigate to the project directory (assuming your gdx file is there).
+2. type: 
+    ./gdx200 yourfile.gdx
+    
+This will create an open office spreadsheet called 'yourfile.gdx'. 
+Formatting of the spreadsheet can be set by editing gdx2oo.conf.
+    
+Examples:
+./gdx2oo -t result.ods yourfile.gdx (Sets the name of the resulting spreadsheet)
+./gdx2oo --help (lists all available options)
+
+B) Execute from the GAMS code
+gdx2oo can be executed directly from the GAMS code with the standard 'execute' command.
+Example:
+execute_unload 'trnsport.gdx'; (creates the .gdx file)
+execute './gdx2oo trnsport.gdx'; (calls gdx2oo to create the spreadsheet)
+
+USAGE (method 2)
+As the above but './' is not needed.
+
+
+
+IV. CONFIGURATION
+gdx2oo.conf can be used to set formatting options. Modify it according to your preferences. Colors can be set as html color codes. 
+Available options:
+* value_bg - background color of the values in the spreadsheets
+* value_fg - foreground color of the values in the spreadsheets
+* header_bg - background color of the header in the spreadsheets
+* header_fg - foreground color of the header in the spreadsheets
+* scalarsheet - indicates whether a separate sheet for scalars is included
+* header - indicates whether headers in the sheets are included
+

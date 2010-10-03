@@ -1,0 +1,62 @@
+#!/bin/bash
+FILE_LOCATION=`pwd`
+FILE='gdx2oo.py'
+HEADER='Yes'
+SCALARSHEET="Yes"
+
+args=("$@")
+n="$#"
+#echo $n
+
+GDXFILE=${args[n-1]}
+position=`expr index "$GDXFILE" .gdx`
+DUMPFILE="${GDXFILE:0:($position-1)}.dump"
+TARGETFILE="${GDXFILE:0:($position-1)}.ods"
+DOREMOVE=1
+
+callgdx2oo(){
+    if [ -e $FILE ]; then
+        "./$FILE" "-t $TARGETFILE" "-H $HEADER" "-s $SCALARSHEET" "$DUMPFILE" 
+        echo "./$FILE" "-t $TARGETFILE" "-H $HEADER" "-s $SCALARSHEET" "$DUMPFILE" 
+
+    else
+        echo "$FILE not found"
+    fi
+    
+}
+
+callgdxdump(){
+        
+        if [ -e $GDXFILE ]; then
+            "gdxdump" $GDXFILE "Output=$DUMPFILE"
+        else
+            echo "$GDXFILE not found"
+        fi
+}
+
+removedumpfile(){
+    `rm $DUMPFILE`
+}
+
+while getopts "t:H:cs:" OPTION
+do
+    case $OPTION in
+        t) 
+            TARGETFILE=$OPTARG;;
+        H)
+            HEADER=$OPTARG;;
+        c)
+           DOREMOVE=1;;
+        s)
+            SCALARSHEET=$OPTARG;;
+
+    esac
+done
+
+callgdxdump 
+callgdx2oo
+
+#cleaning
+if [ $DOREMOVE = 1 ]; then
+    removedumpfile
+fi
